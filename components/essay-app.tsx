@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { EssayEditor } from "./essay-editor"
 import { FeedbackPanel } from "./feedback-panel"
-import { ProgressDashboard } from "./progress-dashboard"
+import { ParagraphRelay } from "./paragraph-relay" // 导入文段接龙组件替代进度模块
 import { ProfilePanel } from "./profile-panel"
 import { CoursePlayer } from "./course-player"
 import { PenTool, MessageSquare, BarChart3, User, Menu, X, Play } from "lucide-react"
@@ -148,7 +148,7 @@ class EssayAPI {
 }
 
 export function EssayApp() {
-  const [activeTab, setActiveTab] = useState<"write" | "feedback" | "progress" | "profile" | "courses">("write")
+  const [activeTab, setActiveTab] = useState<"write" | "feedback" | "relay" | "profile" | "courses">("write") // 将 progress 改为 relay
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentEssay, setCurrentEssay] = useState<Essay | null>(null)
   const [currentCourse, setCurrentCourse] = useState<Course | null>(null)
@@ -157,7 +157,7 @@ export function EssayApp() {
     { id: "write", label: "写作", icon: PenTool },
     { id: "courses", label: "网课", icon: Play },
     { id: "feedback", label: "反馈", icon: MessageSquare },
-    { id: "progress", label: "进度", icon: BarChart3 },
+    { id: "relay", label: "接龙", icon: BarChart3 }, // 替换进度为接龙，暂时使用相同图标
     { id: "profile", label: "我的", icon: User },
   ]
 
@@ -262,7 +262,7 @@ export function EssayApp() {
             />
           )}
           {activeTab === "feedback" && <FeedbackPanel essay={currentEssay} />}
-          {activeTab === "progress" && <ProgressDashboard />}
+          {activeTab === "relay" && <ParagraphRelay />} {/* 替换进度模块为文段接龙 */}
           {activeTab === "profile" && <ProfilePanel />}
         </div>
 
